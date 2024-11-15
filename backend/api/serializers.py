@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import Host, SQL, Data, Dashboard, Chart
+from api.models import Host, SQL, Data, Dashboard, Chart
 
 
 # Serializer Host

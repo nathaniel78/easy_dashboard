@@ -1,0 +1,32 @@
+.reportview-container .main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: gray;
+    padding: 1rem 0;
+    background-color: white;
+}
+
+.img-logo {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    background-color: white;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Oculta o botão "Deploy" no cabeçalho do Streamlit */
+#MainMenu, .stAppDeployButton {
+    visibility: hidden;
+}
