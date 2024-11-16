@@ -85,7 +85,7 @@ class SQLAPI(APIView):
 class SQLDetailAPI(APIView):
     # Validate
     def get_object(self, pk):
-        return get_object_or_404(pk=pk)
+        return get_object_or_404(SQL, pk=pk)
     
     # Detail
     def get(self, request, pk):
@@ -120,7 +120,7 @@ class DataAPI(APIView):
     
     # Create
     def post(self, request):
-        serializer = DataSerializer(Data, data=request.data)
+        serializer = DataSerializer(data=request.data)
         
         if serializer.is_valid():
             serializer.save()
@@ -131,12 +131,12 @@ class DataAPI(APIView):
 class DataDetailAPI(APIView):
     # Validate
     def get_object(self, pk):
-        return get_object_or_404(pk=pk)
+        return get_object_or_404(Data, pk=pk)
     
     # Detail
     def get(self, request, pk):
         data = self.get_object(pk)
-        serializer = DataSerializer(data, data=request.data)        
+        serializer = DataSerializer(data)        
         return Response(serializer.data, status=status.HTTP_200_OK)
         
     # Update
@@ -177,12 +177,12 @@ class DashboardAPI(APIView):
 class DashboardDetailAPI(APIView):
     # Validate
     def get_object(self, pk):
-        return get_object_or_404(pk=pk)
+        return get_object_or_404(Dashboard, pk=pk)
     
     # Detail
     def get(self, request, pk):
         dashboard = self.get_object(pk)
-        serializer = DashboardSerializer(dashboard, data=request.data)        
+        serializer = DashboardSerializer(dashboard)        
         return Response(serializer.data, status=status.HTTP_200_OK)
         
     # Update
