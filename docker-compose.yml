@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
       target: backend
     command: >
-      sh -c "python manage.py migrate && python manage.py makemigrations && python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/api
     ports:
@@ -17,19 +17,8 @@ services:
     depends_on:
       - db
     restart: always
-    environment:
-      # Configuração
-      SECRET_KEY: 'rugnsh+kwdmlmy=38q4%+q$k3*bqun&gpft3y=q^dxln=684yk'
-      DEBUG: 'True'
-      ALLOWED_HOSTS: 'localhost,127.0.0.1,77.37.68.38,dashboard.ifam.edu.br'
-      TIME_ZONE: 'America/Manaus'
-      LANGUAGE_CODE: 'pt-br'
-      # Banco
-      DB_NAME: 'dashboard'
-      DB_USER: 'postgres'
-      DB_PASSWORD: 'Root1q2w3e'
-      DB_HOST: 'db'
-      DB_PORT: '5432'
+    env_file:
+      - .env
     networks:
       - dashboard-network
 
@@ -41,7 +30,7 @@ services:
       dockerfile: Dockerfile
       target: frontend
     command: >
-      sh -c "streamlit run main.py"
+      sh -c "streamlit run main.py --server.port 8501 --server.address 0.0.0.0"
     ports:
       - "8501:8501"
     depends_on:
@@ -58,11 +47,12 @@ services:
     container_name: db
     restart: always
     environment:
-      POSTGRES_DB: 'connect_river'
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'Root1q2w3e'
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./docker/db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - dashboard-network
 
@@ -72,8 +62,8 @@ services:
     container_name: pgadmin
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: sistemas@ifam.edu.br
-      PGADMIN_DEFAULT_PASSWORD: Sistemas123!@#
+      PGADMIN_DEFAULT_EMAIL: ususeruario@email.com
+      PGADMIN_DEFAULT_PASSWORD: User123!@#
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:
