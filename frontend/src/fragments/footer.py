@@ -1,5 +1,15 @@
 # src/fragments/footer.py
 import streamlit as st
+from src.core.param import (
+    FOOTER_COPYRIGTH
+)
 
 def render_footer():
-    st.markdown("<footer style='text-align: center;'>© 2024 EasyDashboard</footer>", unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <footer>
+            {FOOTER_COPYRIGTH}
+        </footer>
+        """,
+        unsafe_allow_html=True
+    )

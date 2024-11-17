@@ -1,0 +1,101 @@
+/* Tema Dark */
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+    font-family: 'sans-serif';
+}
+
+/* Ajuste do layout da área principal */
+.reportview-container .main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+}
+
+/* Rodapé fixo */
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: gray;
+    padding: 5px 0;
+    background-color: #333333;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Logo de imagem */
+.img-logo {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    background-color: #146cbb;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.img-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Oculta o botão "Deploy" no cabeçalho do Streamlit */
+#MainMenu, .stAppDeployButton {
+    visibility: hidden;
+}
+
+/* Estilo para os botões do Streamlit */
+.stButton > button:first-child {
+    background-color: #146cbb;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+}
+
+.stButton > button:hover {
+    background-color: #669cc9;
+    color: #ffffff;
+    border: none;
+    width: 100%;
+}
+
+/* Estilo para o sidebar no tema dark */
+.stSidebar {
+    background-color: #1e1e1e; /* Cor de fundo do sidebar */
+    color: #FFFFFF; /* Cor do texto */
+}
+
+.stSidebar .stSidebarMenu {
+    background-color: #333333; /* Cor de fundo do menu */
+    border-right: 1px solid #444444; /* Linha separando o menu */
+}
+
+.stSidebar .stSidebarMenuItem {
+    color: #FFFFFF; /* Cor dos itens do menu */
+}
+
+.stSidebar .stSidebarMenuItem:hover {
+    background-color: #444444; /* Cor de fundo ao passar o mouse */
+    color: #FFFFFF; /* Cor do texto ao passar o mouse */
+}
+
+/* Adicionar borda ao sidebar */
+.stSidebar .stSidebarMenuItem > a {
+    text-decoration: none; /* Remove o sublinhado */
+}
+
+.stSidebar .stSidebarMenuItem > a:hover {
+    color: #669cc9; /* Cor do link ao passar o mouse */
+}
+
+/* Ajustando as seções do sidebar */
+.stSidebar .stSidebar > div {
+    padding-top: 1rem; /* Padding para o conteúdo do sidebar */
+    padding-bottom: 1rem;
+}

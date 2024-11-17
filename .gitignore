@@ -1,10 +1,15 @@
-# Python-generated files
+.env
+env/
+venv/
+uploads/
+uploads/*
+**/backup*
+**/*tmp
+**/*pyc
+**pyc
+*.pyc
+*.sqlite3
+**/app/migrations/*_initial.py
 __pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
-
-# Virtual environments
-.venv
+**/frontend/migrations/__pycache__
+**/frontend/migrations/__pycache__/*.pyc
