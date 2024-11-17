@@ -36,8 +36,10 @@ services:
     depends_on:
       - backend
     restart: always
+    environment:
+      - API_URL=http://backend:8000/api
     volumes:
-      - ./frontend-template:/app
+      - ./frontend:/app
     networks:
       - dashboard-network
 
@@ -62,8 +64,8 @@ services:
     container_name: pgadmin
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: ususeruario@email.com
-      PGADMIN_DEFAULT_PASSWORD: User123!@#
+      PGADMIN_DEFAULT_EMAIL: username@email.com
+      PGADMIN_DEFAULT_PASSWORD: Username123!@#
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     ports:

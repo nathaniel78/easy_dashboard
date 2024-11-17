@@ -152,13 +152,14 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8501',
+    "http://frontend:8501",
 ]
 
 CORS_ALLOW_METHODS = [
     'GET',
-    # 'POST',
-    # 'PUT',
-    # 'PATCH',
-    # 'DELETE',
-    # 'OPTIONS',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
 ]

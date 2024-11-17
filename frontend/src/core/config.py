@@ -1,10 +1,18 @@
 import requests
 import pandas as pd
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 #---------- Classe ConnectAPI ---------#
 class ConnectAPI:
     #-------- URL base da API ---------#
-    API_URL = "http://localhost:8000/api"
+    API_URL = os.getenv(
+        "API_URL", 
+        default='http://localhost:8000/api'
+    )
+    # API_URL = "http://backend:8000/api"
     
     #------- Método para conectar ao host e validar a conexão -------#
     def connect_host(self):

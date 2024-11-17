@@ -16,18 +16,24 @@ def load_settings():
 
 #------- Sidebar -----------#
 def render_sidebar():
-    #----------- Conexao API ------------#
+    # ----------- Conexão API ------------ #
     api = ConnectAPI()
-    
     response_data_list = api.get_data_as_list()
     
-    data_list = response_data_list
-    
-    dl = pd.json_normalize(data_list)
-    
+    # Validação inicial do response
+    if response_data_list is not None and isinstance(response_data_list, list):
+        try:
+            dl = pd.json_normalize(response_data_list)  # Normaliza os dados em um DataFrame
+        except Exception as e:
+            st.error(f"Erro ao processar os dados da API: {e}")
+            dl = pd.DataFrame()  # Define um DataFrame vazio em caso de erro
+    else:
+        dl = pd.DataFrame()
+
+    # Nome da coluna a ser utilizada
     column_name = "name"
-    
-    #----------- Logo -----------#
+
+    # ----------- Logo ----------- #
     st.sidebar.markdown(
         f"""
         <div class="img-logo">
@@ -36,38 +42,45 @@ def render_sidebar():
         """,
         unsafe_allow_html=True
     )
-    
-    #---------- Carrega as configurações do settings.json --------------#
-    settings = load_settings()
-    
-    maintenance = settings["config_maintenance"]  
 
-    #----------- Menu ------------#
+    # ---------- Carrega as configurações do settings.json -------------- #
+    settings = load_settings()
+
+    maintenance = settings.get("config_maintenance", False)
+
+    # ----------- Menu ------------ #
     st.sidebar.title("Menu")
-    
-    if maintenance is not True:
-        # Definindo as páginas principal
+
+    if not maintenance:
+        # Define a página principal se não estiver definida
         if 'page' not in st.session_state:
             st.session_state['page'] = 'home'
-        
+
+        # Botão para a página inicial
         if st.sidebar.button("Home"):
             st.session_state['page'] = 'home'
-        
-        if column_name in dl.columns:
-            for index, row in dl.iterrows():
-                # Obtendo o valor da coluna 'name'
-                value_id = row[0]
-                value_name = row[1]
-                value_type_chart = row[5]
-                value_name_limite = value_name[0:40]
 
-                # Botão com uma chave única baseada no índice
-                if st.sidebar.button(f"{value_name_limite}", key=f"button_{index}"):
-                    st.session_state['id'] = value_id
-                    st.session_state['page'] = 'detail'
-                    st.session_state['description'] = value_name
-                    st.session_state['type_chart'] = value_type_chart
-                
+        # Itera pelos dados validados
+        if not dl.empty and column_name in dl.columns:
+            for index, row in dl.iterrows():
+                try:
+                    # Obtém os valores das colunas necessárias com validação
+                    value_id = row.get(0, None)
+                    value_name = row.get(1, "Sem Nome")
+                    value_type_chart = row.get(5, "Tipo Desconhecido")
+                    
+                    # Limita o comprimento do nome para exibição
+                    value_name_limite = value_name[:40]
+
+                    # Cria o botão com uma chave única baseada no índice
+                    if st.sidebar.button(f"{value_name_limite}", key=f"button_{index}"):
+                        st.session_state['id'] = value_id
+                        st.session_state['page'] = 'detail'
+                        st.session_state['description'] = value_name
+                        st.session_state['type_chart'] = value_type_chart
+                except Exception as e:
+                    st.warning(f"Erro ao processar o item {index}: {e}")
+
     # Botão para acessar a página Admin
     if st.sidebar.button("Admin"):
         st.session_state['page'] = 'admin'
