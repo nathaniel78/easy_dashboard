@@ -33,7 +33,7 @@ def render_home():
 
     #--------- Validação -----------#
     if not response_data_list:
-        st.write("Nenhum dado encontrado.")
+        st.warning('Nenhum dado encontrado.', icon="⚠️")
         return
 
     dl = pd.json_normalize(response_data_list)

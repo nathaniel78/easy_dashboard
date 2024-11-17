@@ -70,7 +70,7 @@ def render_admin():
             "Configurar cor do template",
             ["light", "dark"],
             index=["light", "dark"].index(settings["config_screen"]),
-            key="config_screem"
+            key="config_screen"
         )
         
         #--------- Ativar/desativar download ----------#
@@ -91,7 +91,7 @@ def render_admin():
         
         #-------- Botão para salvar -----------#
         if st.button("Salvar alterações"):
-            settings["config_screem"] = template_color
+            settings["config_screen"] = template_color
             settings["config_download"] = download_enabled == "Ativar"
             settings["config_maintenance"] = maintenance_enabled == "Ativar"
             save_settings(settings)
