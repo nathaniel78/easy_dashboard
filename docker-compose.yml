@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+  # BACKEND
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    command: >
+      sh -c "python manage.py migrate && python manage.py makemigrations && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: always
+    environment:
+      # Configuração
+      SECRET_KEY: 'rugnsh+kwdmlmy=38q4%+q$k3*bqun&gpft3y=q^dxln=684yk'
+      DEBUG: 'True'
+      ALLOWED_HOSTS: 'localhost,127.0.0.1,77.37.68.38,dashboard.ifam.edu.br'
+      TIME_ZONE: 'America/Manaus'
+      LANGUAGE_CODE: 'pt-br'
+      # Banco
+      DB_NAME: 'dashboard'
+      DB_USER: 'postgres'
+      DB_PASSWORD: 'Root1q2w3e'
+      DB_HOST: 'db'
+      DB_PORT: '5432'
+    networks:
+      - dashboard-network
+
+  # FRONTEND
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: frontend
+    command: >
+      sh -c "streamlit run main.py"
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
+    restart: always
+    volumes:
+      - ./frontend-template:/app
+    networks:
+      - dashboard-network
+
+  # DB
+  db:
+    image: postgres:13
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_DB: 'connect_river'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'Root1q2w3e'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - dashboard-network
+
+  # PGADMIN
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: sistemas@ifam.edu.br
+      PGADMIN_DEFAULT_PASSWORD: Sistemas123!@#
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "9080:80"
+    depends_on:
+      - db
+    networks:
+      - dashboard-network
+  
+  # NGINX
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+    restart: always
+    networks:
+      - dashboard-network
+
+# VOLUMES
+volumes:
+  db_data:
+    name: db_data
+  pgadmin_data:
+    name: pgadmin_data
+
+# NETWORKS
+networks:
+  dashboard-network:
+    driver: bridge

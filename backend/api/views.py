@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from .models import (
     Host,
     SQL,
@@ -18,12 +19,14 @@ from .serializers import (
 class HostAPI(APIView):
     # List
     def get(self, request):
+        # permission_classes = [IsAuthenticated]
         hosts = Host.objects.all()
         serializer = HostSerializar(hosts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # Create
     def post(self, request):
+        # permission_classes = [IsAuthenticated]
         serialiazer = HostSerializar(data=request.data)
         if serialiazer.is_valid():
             serialiazer.save()
@@ -39,11 +42,13 @@ class HostDetailAPI(APIView):
     
     # Detail
     def get(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         host = self.get_object(pk)
         serializer = HostSerializar(host)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # Update
+    # permission_classes = [IsAuthenticated]
     def put(self, request, pk):
         host = self.get_object(pk)
         serializer = HostSerializar(host, data=request.data)
@@ -55,6 +60,7 @@ class HostDetailAPI(APIView):
     
     # Delete
     def delete(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         host = self.get_object(pk)
         host.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -64,12 +70,14 @@ class HostDetailAPI(APIView):
 class SQLAPI(APIView):
     # List
     def get(self, request):
+        # permission_classes = [IsAuthenticated]
         sql = SQL.objects.all()
         serializer = SQLSerializer(sql, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # Create
     def post(self, request):
+        # permission_classes = [IsAuthenticated]
         serializer = SQLSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -85,12 +93,14 @@ class SQLDetailAPI(APIView):
     
     # Detail
     def get(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         sql = self.get_object(pk)
         serializer = SQLSerializer(sql)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # Update
     def put(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         sql = self.get_object(pk)
         serializer = SQLSerializer(sql, data=request.data)
         
@@ -101,6 +111,7 @@ class SQLDetailAPI(APIView):
     
     # Delete
     def delete(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         sql = self.get_object(pk)
         sql.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -110,12 +121,14 @@ class SQLDetailAPI(APIView):
 class DataAPI(APIView):
     # List
     def get(self, request):
+        # permission_classes = [IsAuthenticated]
         data = Data.objects.all()
         serializer = DataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     # Create
     def post(self, request):
+        # permission_classes = [IsAuthenticated]
         serializer = DataSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -131,12 +144,14 @@ class DataDetailAPI(APIView):
     
     # Detail
     def get(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         data = self.get_object(pk)
         serializer = DataSerializer(data)        
         return Response(serializer.data, status=status.HTTP_200_OK)
         
     # Update
     def put(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         data = self.get_object(pk)
         serializer = DataSerializer(data, data=request.data)
         
@@ -147,6 +162,7 @@ class DataDetailAPI(APIView):
     
     # Delete
     def delete(self, request, pk):
+        # permission_classes = [IsAuthenticated]
         data = self.get_object(pk)
         data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
