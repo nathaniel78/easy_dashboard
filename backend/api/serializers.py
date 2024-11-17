@@ -29,7 +29,7 @@ class DataSerializer(serializers.ModelSerializer):
     # Validação    
     def validate(self, data):
         type_chart = data.get('type_chart')
-        if type_chart not in [1, 2, 3]:
-            raise serializers.ValidationError("Valores aceitos: 1 (barra empilhada), 2 (area empilhada), 3 (bolha empilhada)")
+        if type_chart not in [1, 2, 3, 4]:
+            raise serializers.ValidationError("Valores aceitos: 1 (barra empilhada), 2 (area empilhada), 3 (bolha empilhada), 4 (barra horizontal)")
 
         return data

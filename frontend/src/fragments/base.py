@@ -35,7 +35,7 @@ def render_base(content_func):
     #---------- Carrega as configurações do settings.json --------------#
     settings = load_settings()
     
-    theme = settings["config_screen"]  # Corrigido o erro de digitação
+    theme = settings["config_screen"] 
     is_maintenance = settings["config_maintenance"]
     page_admin = st.session_state.get('page')
     
