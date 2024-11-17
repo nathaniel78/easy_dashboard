@@ -1,5 +1,9 @@
 from rest_framework import serializers
-from api.models import Host, SQL, Data, Dashboard, Chart
+from api.models import (
+    Host, 
+    SQL, 
+    Data, 
+)
 
 
 # Serializer Host
@@ -20,18 +24,4 @@ class SQLSerializer(serializers.ModelSerializer):
 class DataSerializer(serializers.ModelSerializer):
     class Meta:
         model =Data
-        fields = '__all__'
-        
-
-# Serializer Dashboard
-class DashboardSerializer(serializers.ModelSerializer):
-    class Meta:
-        model =Dashboard
-        fields = '__all__'
-        
-        
-# Serializer Chart
-class ChartSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chart
         fields = '__all__'
