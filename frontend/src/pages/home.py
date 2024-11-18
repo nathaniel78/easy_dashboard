@@ -1,3 +1,6 @@
+import plotly.io as pio
+pio.renderers.default = "browser"
+
 from src.fragments.base import render_base
 from src.core.config import ConnectAPI
 import streamlit as st
