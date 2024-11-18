@@ -8,7 +8,7 @@ Este código está disponível para uso com restrições comerciais e requer aut
 
 ## Sobre:
 ```
-Loader é um aplicativo para realizar ações pós e após o upload do arquivo que aceita tanto senha como certificado para conexão ssh.
+Easy dashboard é um aplicativo para criar gráficos de forma simplificada.
 ```
 
 ### Subindo projeto:
@@ -34,7 +34,7 @@ Loader é um aplicativo para realizar ações pós e após o upload do arquivo q
 ### Registrando informações no backend:
 ```
 
-
+Ainda em desenvolvimento, para realizar consultas diretamente no banco e salvar para consumo do frontend.
 ```
 
 ### Área administrativa do frontend:
