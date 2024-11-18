@@ -46,7 +46,7 @@ RUN pip install --upgrade pip
 
 # Copiar e instalar dependências Python
 COPY ./requirements-streamlit.txt . 
-RUN pip install --no-cache-dir -r requirements-streamlit.txt.txt
+RUN pip install --no-cache-dir -r requirements-streamlit.txt
 
 # Atualizar pandas explicitamente
 RUN pip install --no-cache-dir pandas
