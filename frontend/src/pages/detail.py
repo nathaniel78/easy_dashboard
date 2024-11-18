@@ -1,3 +1,4 @@
+from typing import Self
 import plotly.io as pio
 pio.renderers.default = "browser"
 
@@ -73,10 +74,20 @@ def render_detail():
             other_keys = keys[1:]
             
             #------------ Gráficos ----------#
+            AUTOZISE = 500
+            HEIGHT = None
+            
             if type_chart == 1:
                 # Gráfico de barras empilhadas
                 try:
                     bar_chart = px.bar(df, x=key0, y=other_keys, title=f'Gráfico de Barras: {data_name}', barmode='stack')
+                    
+                    bar_chart.update_layout(
+                        autosize=AUTOZISE,
+                        height=HEIGHT, 
+                        margin=dict(l=0, r=0, t=40, b=0) 
+                    )
+                    
                     st.plotly_chart(bar_chart)
                 except ValueError as e:
                     st.error(f"Erro ao criar gráfico de barras: {e}")
@@ -86,6 +97,13 @@ def render_detail():
                 if len(df[key0].unique()) > 1:
                     try:
                         area_chart = px.area(df, x=key0, y=other_keys, title=f'Gráfico de Área Empilhada: {data_name}')
+                        
+                        area_chart.update_layout(
+                            autosize=AUTOZISE,
+                            height=HEIGHT, 
+                            margin=dict(l=0, r=0, t=40, b=0) 
+                        )
+                        
                         st.plotly_chart(area_chart, use_container_width=True)
                     except ValueError as e:
                         st.error(f"Erro ao criar gráfico de área: {e}")
@@ -95,6 +113,13 @@ def render_detail():
                 if len(other_keys) >= 2:
                     try:
                         bubble_chart = px.scatter(df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, title=f'Gráfico de Bolhas: {data_name}')
+                        
+                        bubble_chart.update_layout(
+                            autosize=AUTOZISE,
+                            height=HEIGHT, 
+                            margin=dict(l=0, r=0, t=40, b=0) 
+                        )
+                        
                         st.plotly_chart(bubble_chart, use_container_width=True)
                     except ValueError as e:
                         st.error(f"Erro ao criar gráfico de bolhas: {e}")
@@ -115,6 +140,13 @@ def render_detail():
                 # Gráfico de barras horizontais
                 try:
                     horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', title=f'Gráfico de Barras Horizontais: {data_name}')
+                    
+                    horizontal_bar_chart.update_layout(
+                            autosize=AUTOZISE,
+                            height=HEIGHT, 
+                            margin=dict(l=0, r=0, t=40, b=0) 
+                        )
+                    
                     st.plotly_chart(horizontal_bar_chart)
                     
                 except ValueError as e:

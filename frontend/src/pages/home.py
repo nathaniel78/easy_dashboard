@@ -85,6 +85,12 @@ def render_home():
                         if data_type_chart == 1:
                             bar_chart = px.bar(df, x=key0, y=other_keys, title=f"Gráfico de Barras: {value_name}", barmode="stack")
                             st.plotly_chart(bar_chart)
+                            
+                            bar_chart.update_layout(
+                                autosize=True,
+                                height=None, 
+                                margin=dict(l=0, r=0, t=40, b=0) 
+                            )
 
                             if is_download:
                                 csv = convert_df(df)
@@ -100,6 +106,12 @@ def render_home():
                             if len(df[key0].unique()) > 1:
                                 area_chart = px.area(df, x=key0, y=other_keys, title=f"Gráfico de Área Empilhada: {value_name}")
                                 st.plotly_chart(area_chart)
+                                
+                                area_chart.update_layout(
+                                    autosize=True,
+                                    height=None, 
+                                    margin=dict(l=0, r=0, t=40, b=0) 
+                                )
 
                                 if is_download:
                                     csv = convert_df(df)
@@ -117,6 +129,12 @@ def render_home():
                                     df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, title=f"Gráfico de Bolhas: {value_name}"
                                 )
                                 st.plotly_chart(bubble_chart)
+                                
+                                bubble_chart.update_layout(
+                                    autosize=True,
+                                    height=None, 
+                                    margin=dict(l=0, r=0, t=40, b=0) 
+                                )
 
                                 if is_download:
                                     csv = convert_df(df)
@@ -134,6 +152,12 @@ def render_home():
                             # Gráfico de barras horizontal
                             horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', title=f'Gráfico de Barras Horizontais: {value_name}')
                             st.plotly_chart(horizontal_bar_chart)
+                            
+                            horizontal_bar_chart.update_layout(
+                                    autosize=True,
+                                    height=None, 
+                                    margin=dict(l=0, r=0, t=40, b=0) 
+                                )
 
                             if is_download:
                                 csv = convert_df(df)
