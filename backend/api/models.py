@@ -34,7 +34,7 @@ class Data(models.Model):
     host = models.ForeignKey(Host, on_delete=models.CASCADE)
     sql = models.ForeignKey(SQL, on_delete=models.CASCADE)
     data_cron = models.CharField(max_length=100)
-    data_json = models.JSONField(blank=False, null=False)
+    data_json = models.TextField(default='{}')
     type_chart = models.IntegerField(default=1, blank=False, null=False)
     emphasis = models.BooleanField(default=False)
     data_create = models.DateTimeField(auto_now_add=True)
