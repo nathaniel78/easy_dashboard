@@ -15,8 +15,8 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 
 # Copiar e instalar dependências Python
-COPY ./requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./requirements-drf.txt .
+RUN pip install --no-cache-dir -r requirements-drf.txt
 
 # Instalar o pacote datasets
 RUN pip install -U datasets
@@ -45,8 +45,8 @@ RUN apt-get update && \
 RUN pip install --upgrade pip
 
 # Copiar e instalar dependências Python
-COPY ./requirements.txt . 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./requirements-streamlit.txt . 
+RUN pip install --no-cache-dir -r requirements-streamlit.txt.txt
 
 # Atualizar pandas explicitamente
 RUN pip install --no-cache-dir pandas

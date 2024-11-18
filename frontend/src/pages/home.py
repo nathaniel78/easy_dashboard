@@ -83,7 +83,6 @@ def render_home():
 
                         #-------- Gerar gráficos com base no tipo -------#
                         if data_type_chart == 1:
-                            # Gráfico de barras empilhadas
                             bar_chart = px.bar(df, x=key0, y=other_keys, title=f"Gráfico de Barras: {value_name}", barmode="stack")
                             st.plotly_chart(bar_chart)
 
