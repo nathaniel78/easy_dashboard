@@ -1,4 +1,4 @@
-# CONFIGURANDO PROJETO
+# Configurações do projeto
 
 ## Uso do Código:
 Este código está disponível para uso com restrições comerciais e requer autorização para modificações.
@@ -11,7 +11,7 @@ Este código está disponível para uso com restrições comerciais e requer aut
 Loader é um aplicativo para realizar ações pós e após o upload do arquivo que aceita tanto senha como certificado para conexão ssh.
 ```
 
-### SUBINDO PROJETO:
+### Subindo projeto:
 ```
 1 - Baixar o pacote git clone https://github.com/nathaniel78/easy_dashboard.git
 2 - Rodar aplicação em docker, necessário ter instalado docker e docker-compose
@@ -31,14 +31,14 @@ Loader é um aplicativo para realizar ações pós e após o upload do arquivo q
 9 - Caso necessite renovar o token, basta acessar na api o http://ip_do_host:8000/api/token/refresh/ e informar o token_refresh que será gerado um novo token.
 ```
 
-### REGISTANDO INFORMAÇÕES NO BACKEND:
+### Registrando informações no backend:
 ```
 
 
 ```
 
-### CONFIGURAÇÕES POSSÍVEL NO FRONTEND:
+### Área administrativa do frontend:
 ```
-
+1 - Acessando a área administrativa do frontend é possível configurar o template, habilitar o botão download para os gráficos, habilitar o aviso de manuteção, registrar o token e token refresh.
 
 ```
