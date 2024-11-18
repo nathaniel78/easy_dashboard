@@ -82,12 +82,14 @@ def render_home():
                         other_keys = keys[1:]
 
                         #-------- Gerar gráficos com base no tipo -------#
+                        AUTOZISE = True
+                        
                         if data_type_chart == 1:
                             bar_chart = px.bar(df, x=key0, y=other_keys, title=f"Gráfico de Barras: {value_name}", barmode="stack")
                             st.plotly_chart(bar_chart)
                             
                             bar_chart.update_layout(
-                                autosize=True,
+                                autosize=AUTOZISE,
                                 height=None, 
                                 margin=dict(l=0, r=0, t=40, b=0) 
                             )
@@ -108,7 +110,7 @@ def render_home():
                                 st.plotly_chart(area_chart)
                                 
                                 area_chart.update_layout(
-                                    autosize=True,
+                                    autosize=AUTOZISE,
                                     height=None, 
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
@@ -131,7 +133,7 @@ def render_home():
                                 st.plotly_chart(bubble_chart)
                                 
                                 bubble_chart.update_layout(
-                                    autosize=True,
+                                    autosize=AUTOZISE,
                                     height=None, 
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
@@ -154,7 +156,7 @@ def render_home():
                             st.plotly_chart(horizontal_bar_chart)
                             
                             horizontal_bar_chart.update_layout(
-                                    autosize=True,
+                                    autosize=AUTOZISE,
                                     height=None, 
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
