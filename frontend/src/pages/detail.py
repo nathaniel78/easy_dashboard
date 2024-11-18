@@ -8,12 +8,17 @@ import pandas as pd
 import json
 
 
-#------ Load settings ---------#
+#-------- Carregar settings ----------#
 def load_settings():
     settings_path = Path("src/core/settings.json")
-    with open(settings_path, "r") as file:
-        settings = json.load(file)
-    return settings
+    
+    if settings_path.exists():
+        with open(settings_path, "r") as f:
+            settings = json.load(f)
+        return settings
+    else:
+        st.error("Arquivo de settings não encontrado.")
+        return {}
 
 #------ Converte data ---------#
 @st.cache_data

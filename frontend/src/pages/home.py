@@ -7,15 +7,16 @@ from pathlib import Path
 import json
 
 
-#------ Load settings ---------#
+#-------- Carregar settings ----------#
 def load_settings():
     settings_path = Path("src/core/settings.json")
-    try:
-        with open(settings_path, "r") as file:
-            settings = json.load(file)
+    
+    if settings_path.exists():
+        with open(settings_path, "r") as f:
+            settings = json.load(f)
         return settings
-    except Exception as e:
-        st.error(f"Erro ao carregar configurações: {e}")
+    else:
+        st.error("Arquivo de settings não encontrado.")
         return {}
 
 

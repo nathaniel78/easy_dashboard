@@ -1,5 +1,7 @@
 {
     "config_screen": "light",
     "config_download": false,
-    "config_maintenance": false
+    "config_maintenance": false,
+    "config_token": "",
+    "config_refresh": ""
 }

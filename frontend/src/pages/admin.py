@@ -26,6 +26,9 @@ def save_settings(settings):
         json.dump(settings, f, indent=4)
     st.success("Configurações salvas com sucesso!")
     
+    # Recarregar as configurações imediatamente após salvar
+    st.session_state['settings'] = settings
+    
 
 #-------- Definir tempo de sessão ---------#
 def check_session_timeout():
@@ -89,11 +92,27 @@ def render_admin():
             key="config_maintenance"
         )
         
+        #------- Configurar token --------#
+        token_input = st.text_input(
+            "Digite o token de acesso:",
+            value=settings.get("config_token", ""),
+            key="config_token",
+        )
+        
+        #------- Configurar refresh --------#
+        refresh_input = st.text_input(
+            "Digite o token de refresh:",
+            value=settings.get("config_refresh", ""),
+            key="config_refresh",
+        )
+        
         #-------- Botão para salvar -----------#
         if st.button("Salvar alterações"):
             settings["config_screen"] = template_color
             settings["config_download"] = download_enabled == "Ativar"
             settings["config_maintenance"] = maintenance_enabled == "Ativar"
+            settings["config_token"] = token_input
+            settings["config_refresh"] = refresh_input
             save_settings(settings)
             
         #--------- Botão logout ------#
