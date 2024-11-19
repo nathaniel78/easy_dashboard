@@ -84,8 +84,7 @@ def render_detail():
                     
                 bar_chart.update_layout(
                     width=CHART_WIDTH,
-                    height=CHART_HEIGHT,
-                    margin=dict(l=0, r=0, t=40, b=0)
+                    height=CHART_HEIGHT
                 )
                 
                 st.plotly_chart(bar_chart)
@@ -96,8 +95,7 @@ def render_detail():
                         
                 area_chart.update_layout(
                     width=CHART_WIDTH,
-                    height=CHART_HEIGHT,
-                    margin=dict(l=0, r=0, t=40, b=0) 
+                    height=CHART_HEIGHT 
                 )
                 
                 st.plotly_chart(area_chart, use_container_width=True)
@@ -109,8 +107,7 @@ def render_detail():
                         
                 bubble_chart.update_layout(
                     width=CHART_WIDTH,
-                    height=CHART_HEIGHT,
-                    margin=dict(l=0, r=0, t=40, b=0) 
+                    height=CHART_HEIGHT 
                 )
                 
                 st.plotly_chart(bubble_chart, use_container_width=True)

@@ -92,8 +92,7 @@ def render_home():
                             
                             bar_chart.update_layout(
                                 width=CHART_WIDTH,
-                                height=CHART_HEIGHT,
-                                margin=dict(l=0, r=0, t=40, b=0)                                
+                                height=CHART_HEIGHT                                
                             )
 
                             if is_download:
@@ -113,8 +112,7 @@ def render_home():
                                 
                                 area_chart.update_layout(
                                     width=CHART_WIDTH,
-                                    height=CHART_HEIGHT,
-                                    margin=dict(l=0, r=0, t=40, b=0) 
+                                    height=CHART_HEIGHT 
                                 )
 
                                 if is_download:
@@ -136,8 +134,7 @@ def render_home():
                                 
                                 bubble_chart.update_layout(
                                     width=CHART_WIDTH,
-                                    height=CHART_HEIGHT,
-                                    margin=dict(l=0, r=0, t=40, b=0) 
+                                    height=CHART_HEIGHT 
                                 )
 
                                 if is_download:
@@ -159,8 +156,7 @@ def render_home():
                             
                             horizontal_bar_chart.update_layout(
                                     width=CHART_WIDTH,
-                                    height=CHART_HEIGHT,
-                                    margin=dict(l=0, r=0, t=40, b=0) 
+                                    height=CHART_HEIGHT 
                                 )
 
                             if is_download:

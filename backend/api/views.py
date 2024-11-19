@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.authentication import SessionAuthentication
+from api.execute_query import SQLTaskRunner
 from .models import (
     Host,
     SQL,
@@ -23,6 +24,7 @@ class HostAPI(APIView):
     def get(self, request):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         hosts = Host.objects.all()
         serializer = HostSerializar(hosts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -31,6 +33,7 @@ class HostAPI(APIView):
     def post(self, request):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         serialiazer = HostSerializar(data=request.data)
         if serialiazer.is_valid():
             serialiazer.save()
@@ -48,6 +51,7 @@ class HostDetailAPI(APIView):
     def get(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         host = self.get_object(pk)
         serializer = HostSerializar(host)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -56,6 +60,7 @@ class HostDetailAPI(APIView):
     def put(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         host = self.get_object(pk)
         serializer = HostSerializar(host, data=request.data)
         
@@ -68,6 +73,7 @@ class HostDetailAPI(APIView):
     def delete(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         host = self.get_object(pk)
         host.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -79,6 +85,10 @@ class SQLAPI(APIView):
     def get(self, request):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
+        # SQLTaskRunner.run_sql()
+        # SQLTaskRunner.run_data()
+        
         sql = SQL.objects.all()
         serializer = SQLSerializer(sql, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -87,6 +97,7 @@ class SQLAPI(APIView):
     def post(self, request):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         serializer = SQLSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -104,6 +115,7 @@ class SQLDetailAPI(APIView):
     def get(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         sql = self.get_object(pk)
         serializer = SQLSerializer(sql)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -112,6 +124,7 @@ class SQLDetailAPI(APIView):
     def put(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         sql = self.get_object(pk)
         serializer = SQLSerializer(sql, data=request.data)
         
@@ -124,6 +137,7 @@ class SQLDetailAPI(APIView):
     def delete(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         sql = self.get_object(pk)
         sql.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -135,7 +149,11 @@ class DataAPI(APIView):
     def get(self, request):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
-        data = Data.objects.all()
+        
+        # SQLTaskRunner.run_sql()
+        # SQLTaskRunner.run_data()
+        
+        data = Data.objects.all()        
         serializer = DataSerializer(data, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
@@ -143,6 +161,7 @@ class DataAPI(APIView):
     def post(self, request):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         serializer = DataSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -160,6 +179,7 @@ class DataDetailAPI(APIView):
     def get(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         data = self.get_object(pk)
         serializer = DataSerializer(data)        
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -168,6 +188,7 @@ class DataDetailAPI(APIView):
     def put(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         data = self.get_object(pk)
         serializer = DataSerializer(data, data=request.data)
         
@@ -180,6 +201,7 @@ class DataDetailAPI(APIView):
     def delete(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
         data = self.get_object(pk)
         data.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

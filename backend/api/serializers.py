@@ -6,7 +6,6 @@ from api.models import (
     Data, 
 )
 
-
 # Serializer Host
 class HostSerializar(serializers.ModelSerializer):
     class Meta:
@@ -28,12 +27,10 @@ class DataSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
     def to_representation(self, instance):
-        # Serializa os dados usando a implementação padrão
         representation = super().to_representation(instance)
         
         # Verifica se o campo 'data_json' existe e converte
         if 'data_json' in representation:
-            # Se 'data_json' for uma string JSON, converte para objeto Python
             try:
                 representation['data_json'] = json.loads(representation['data_json'])
             except (json.JSONDecodeError, TypeError):
@@ -44,7 +41,6 @@ class DataSerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         # Converte 'data_json' de volta para o formato de string JSON, se for um objeto
         if 'data_json' in data:
-            # Se 'data_json' for um objeto (dict ou list), converte para string JSON
             try:
                 data['data_json'] = json.dumps(data['data_json'])
             except (TypeError, ValueError):
