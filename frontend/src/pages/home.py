@@ -8,6 +8,10 @@ import pandas as pd
 import plotly.express as px
 from pathlib import Path
 import json
+from src.core.param import (
+    CHART_WIDTH,
+    CHART_HEIGHT,
+)
 
 
 #-------- Carregar settings ----------#
@@ -81,16 +85,15 @@ def render_home():
                         key0 = keys[0]
                         other_keys = keys[1:]
 
-                        #-------- Gerar gráficos com base no tipo -------#
-                        AUTOZISE = True
-                        
+                        #-------- Gerar gráficos com base no tipo -------#                        
                         if data_type_chart == 1:
                             bar_chart = px.bar(df, x=key0, y=other_keys, title=f"Gráfico de Barras: {value_name}", barmode="stack")
                             st.plotly_chart(bar_chart)
                             
                             bar_chart.update_layout(
-                                autosize=AUTOZISE,
-                                height=None, 
+                                autosize=True,
+                                width=CHART_WIDTH,
+                                height=CHART_HEIGHT,                                
                                 margin=dict(l=0, r=0, t=40, b=0) 
                             )
 
@@ -110,8 +113,9 @@ def render_home():
                                 st.plotly_chart(area_chart)
                                 
                                 area_chart.update_layout(
-                                    autosize=AUTOZISE,
-                                    height=None, 
+                                    autosize=True,
+                                    width=CHART_WIDTH,
+                                    height=CHART_HEIGHT, 
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
 
@@ -133,8 +137,9 @@ def render_home():
                                 st.plotly_chart(bubble_chart)
                                 
                                 bubble_chart.update_layout(
-                                    autosize=AUTOZISE,
-                                    height=None, 
+                                    autosize=True,
+                                    width=CHART_WIDTH,
+                                    height=CHART_HEIGHT, 
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
 
@@ -156,8 +161,9 @@ def render_home():
                             st.plotly_chart(horizontal_bar_chart)
                             
                             horizontal_bar_chart.update_layout(
-                                    autosize=AUTOZISE,
-                                    height=None, 
+                                    autosize=True,
+                                    width=CHART_WIDTH,
+                                    height=CHART_HEIGHT, 
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
 

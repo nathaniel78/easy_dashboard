@@ -2,6 +2,6 @@
     "config_screen": "light",
     "config_download": false,
     "config_maintenance": false,
-    "config_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzMxOTcyNjE0LCJpYXQiOjE3MzE5NjkwMTQsImp0aSI6IjkzOTRhMzM5MmNlMzQxZGVhYWVjOTYzMzVlZTFiOTA4IiwidXNlcl9pZCI6MX0.-31vQPe45UnWM8M2Cn_UPfrDwswe1htmXlDdheMIWN0",
-    "config_refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMjA1NTQxNCwiaWF0IjoxNzMxOTY5MDE0LCJqdGkiOiI5NThhZjU0YWM5YTc0ZGNmOWMzZWNhNTBlNmE2ZjlhNSIsInVzZXJfaWQiOjF9.7Q3apWuJTRjHAuhdMOZiSo0uNzry2nmLz_HMujJAw1U"
+    "config_token": "",
+    "config_refresh": ""
 }

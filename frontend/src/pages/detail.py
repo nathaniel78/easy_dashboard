@@ -9,6 +9,10 @@ import plotly.express as px
 from pathlib import Path
 import pandas as pd
 import json
+from src.core.param import (
+    CHART_WIDTH,
+    CHART_HEIGHT,
+)
 
 
 #-------- Carregar settings ----------#
@@ -74,15 +78,14 @@ def render_detail():
             other_keys = keys[1:]
             
             #------------ Gráficos ----------#
-            AUTOZISE = True
-            
             if type_chart == 1:
                 # Gráfico de barras empilhadas
                 bar_chart = px.bar(df, x=key0, y=other_keys, title=f'Gráfico de Barras: {data_name}', barmode='stack')
                     
                 bar_chart.update_layout(
-                    autosize=AUTOZISE,
-                    height=None,
+                    autosize=True,
+                    width=CHART_WIDTH,
+                    height=CHART_HEIGHT, 
                     margin=dict(l=0, r=0, t=40, b=0) 
                 )
                 
@@ -93,8 +96,9 @@ def render_detail():
                 area_chart = px.area(df, x=key0, y=other_keys, title=f'Gráfico de Área Empilhada: {data_name}')
                         
                 area_chart.update_layout(
-                    autosize=AUTOZISE,
-                    height=None,
+                    autosize=True,
+                    width=CHART_WIDTH,
+                    height=CHART_HEIGHT, 
                     margin=dict(l=0, r=0, t=40, b=0) 
                 )
                 
@@ -106,8 +110,8 @@ def render_detail():
                 bubble_chart = px.scatter(df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, title=f'Gráfico de Bolhas: {data_name}')
                         
                 bubble_chart.update_layout(
-                    autosize=AUTOZISE,
-                    height=None,
+                    width=CHART_WIDTH,
+                    height=CHART_HEIGHT, 
                     margin=dict(l=0, r=0, t=40, b=0) 
                 )
                 
@@ -128,8 +132,8 @@ def render_detail():
                 horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', title=f'Gráfico de Barras Horizontais: {data_name}')
                     
                 horizontal_bar_chart.update_layout(
-                        autosize=AUTOZISE, 
-                        height=None,
+                        width=CHART_WIDTH,
+                        height=CHART_HEIGHT, 
                         margin=dict(l=0, r=0, t=40, b=0) 
                     )
                 
