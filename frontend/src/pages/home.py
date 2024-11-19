@@ -11,6 +11,10 @@ import json
 from src.core.param import (
     CHART_WIDTH,
     CHART_HEIGHT,
+    COLOR_BLUE,
+    COLOR_BLACK,
+    COLOR_GREEN,
+    COLOR_RED
 )
 
 
@@ -54,6 +58,7 @@ def render_home():
 
     try:
         dl = pd.json_normalize(response_data_list)
+        dl = dl.sort_values(by="id", ascending=True)
         values = list(dl.values)
     except Exception as e:
         st.error(f"Erro ao processar dados da API: {e}")
@@ -66,8 +71,8 @@ def render_home():
         try:
             value_id = value[0]
             value_name = value[1]
-            value_emphasis = value[6]
-            data_type_chart = value[5]
+            value_emphasis = value[5]
+            data_type_chart = value[4]
 
             if value_emphasis:
                 response_data = api.get_data_as_result(value_id)
@@ -85,14 +90,17 @@ def render_home():
                         key0 = keys[0]
                         other_keys = keys[1:]
 
-                        #-------- Gerar gráficos com base no tipo -------#                        
+                        #-------- Gerar gráficos com base no tipo -------#                                               
                         if data_type_chart == 1:
-                            bar_chart = px.bar(df, x=key0, y=other_keys, title=f"Gráfico de Barras: {value_name}", barmode="stack")
+                            bar_chart = px.bar(df, x=key0, y=other_keys, 
+                                title=f"Gráfico de Barras: {value_name}", barmode="stack",
+                                color_discrete_sequence=[COLOR_GREEN]
+                            )
+                            
                             st.plotly_chart(bar_chart)
                             
                             bar_chart.update_layout(
-                                width=CHART_WIDTH,
-                                height=CHART_HEIGHT                                
+                                width=CHART_WIDTH                                
                             )
 
                             if is_download:
@@ -107,12 +115,14 @@ def render_home():
                         elif data_type_chart == 2:
                             # Gráfico de área empilhada
                             if len(df[key0].unique()) > 1:
-                                area_chart = px.area(df, x=key0, y=other_keys, title=f"Gráfico de Área Empilhada: {value_name}")
+                                area_chart = px.area(df, x=key0, y=other_keys, 
+                                    title=f"Gráfico de Área Empilhada: {value_name}",
+                                    color_discrete_sequence=[COLOR_GREEN]
+                                )
                                 st.plotly_chart(area_chart)
                                 
                                 area_chart.update_layout(
-                                    width=CHART_WIDTH,
-                                    height=CHART_HEIGHT 
+                                    width=CHART_WIDTH 
                                 )
 
                                 if is_download:
@@ -128,13 +138,13 @@ def render_home():
                             # Gráfico de bolhas empilhadas
                             if len(other_keys) >= 2:
                                 bubble_chart = px.scatter(
-                                    df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, title=f"Gráfico de Bolhas: {value_name}"
+                                    df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, 
+                                        title=f"Gráfico de Bolhas: {value_name}"
                                 )
                                 st.plotly_chart(bubble_chart)
                                 
                                 bubble_chart.update_layout(
-                                    width=CHART_WIDTH,
-                                    height=CHART_HEIGHT 
+                                    width=CHART_WIDTH
                                 )
 
                                 if is_download:
@@ -151,12 +161,16 @@ def render_home():
                         #-------- Gerar gráficos de barra horizontal -------#
                         elif data_type_chart == 4:
                             # Gráfico de barras horizontal
-                            horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', title=f'Gráfico de Barras Horizontais: {value_name}')
+                            df = df.sort_values(by=other_keys, ascending=True) # sort ascendente caso queira alterar mude para False
+                            
+                            horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', 
+                                title=f'Gráfico de Barras Horizontais: {value_name}', 
+                                color_discrete_sequence=[COLOR_GREEN]
+                            )
                             st.plotly_chart(horizontal_bar_chart)
                             
                             horizontal_bar_chart.update_layout(
-                                    width=CHART_WIDTH,
-                                    height=CHART_HEIGHT 
+                                    width=CHART_WIDTH 
                                 )
 
                             if is_download:

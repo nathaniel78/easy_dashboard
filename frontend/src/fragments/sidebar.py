@@ -28,10 +28,11 @@ def render_sidebar():
     # Validação inicial do response
     if response_data_list is not None and isinstance(response_data_list, list):
         try:
-            dl = pd.json_normalize(response_data_list)  # Normaliza os dados em um DataFrame
+            dl = pd.json_normalize(response_data_list)
+            dl = dl.sort_values(by="id", ascending=False)
         except Exception as e:
             st.error(f"Erro ao processar os dados da API: {e}")
-            dl = pd.DataFrame()  # Define um DataFrame vazio em caso de erro
+            dl = pd.DataFrame()
     else:
         dl = pd.DataFrame()
 
@@ -72,7 +73,7 @@ def render_sidebar():
                     # Obtém os valores das colunas necessárias com validação
                     value_id = row.get(0, None)
                     value_name = row.get(1, "Sem Nome")
-                    value_type_chart = row.get(5, "Tipo Desconhecido")
+                    value_type_chart = row.get(4, "Tipo Desconhecido")
                     
                     # Limita o comprimento do nome para exibição
                     value_name_limite = value_name[:40]

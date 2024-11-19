@@ -1,4 +1,3 @@
-from typing import Self
 import plotly.io as pio
 pio.renderers.default = "browser"
 
@@ -12,6 +11,10 @@ import json
 from src.core.param import (
     CHART_WIDTH,
     CHART_HEIGHT,
+    COLOR_BLUE,
+    COLOR_BLACK,
+    COLOR_GREEN,
+    COLOR_RED
 )
 
 
@@ -47,7 +50,7 @@ def render_detail():
     description = st.session_state.get('description')
     id = st.session_state.get('id')
     type_chart = st.session_state.get('type_chart')
-    #st.write(id)
+    # st.write(type_chart)
     
     #----------- Conexao API ------------#
     api = ConnectAPI()
@@ -77,40 +80,47 @@ def render_detail():
             key0 = keys[0]
             other_keys = keys[1:]
             
-            #------------ Gráficos ----------#
+            #------------ Gráficos ----------#            
             if type_chart == 1:
                 # Gráfico de barras empilhadas
-                bar_chart = px.bar(df, x=key0, y=other_keys, title=f'Gráfico de Barras: {data_name}', barmode='stack')
+                bar_chart = px.bar(df, x=key0, y=other_keys, 
+                    title=f'Gráfico de Barras: {data_name}', barmode='stack',
+                    color_discrete_sequence=[COLOR_GREEN]
+                )
                     
+                st.plotly_chart(bar_chart)
+                
                 bar_chart.update_layout(
                     width=CHART_WIDTH,
                     height=CHART_HEIGHT
                 )
                 
-                st.plotly_chart(bar_chart)
-                
             elif type_chart == 2:
                 # Gráfico de área empilhada
-                area_chart = px.area(df, x=key0, y=other_keys, title=f'Gráfico de Área Empilhada: {data_name}')
-                        
+                area_chart = px.area(df, x=key0, y=other_keys, 
+                    title=f'Gráfico de Área Empilhada: {data_name}',
+                    color_discrete_sequence=[COLOR_GREEN]
+                )
+
+                st.plotly_chart(area_chart, use_container_width=True)
+                    
                 area_chart.update_layout(
                     width=CHART_WIDTH,
                     height=CHART_HEIGHT 
                 )
-                
-                st.plotly_chart(area_chart, use_container_width=True)
-                    
             
             elif type_chart == 3:
                 # Gráfico de bolhas
-                bubble_chart = px.scatter(df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, title=f'Gráfico de Bolhas: {data_name}')
-                        
+                bubble_chart = px.scatter(df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, 
+                    title=f'Gráfico de Bolhas: {data_name}'
+                )
+                
+                st.plotly_chart(bubble_chart, use_container_width=True)
+                
                 bubble_chart.update_layout(
                     width=CHART_WIDTH,
                     height=CHART_HEIGHT 
                 )
-                
-                st.plotly_chart(bubble_chart, use_container_width=True)
 
             # Botão para download do CSV
             if is_download:
@@ -124,15 +134,18 @@ def render_detail():
                 
             elif type_chart == 4:
                 # Gráfico de barras horizontais
-                horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', title=f'Gráfico de Barras Horizontais: {data_name}')
-                    
-                horizontal_bar_chart.update_layout(
-                        width=CHART_WIDTH,
-                        height=CHART_HEIGHT,
-                        margin=dict(l=0, r=0, t=40, b=0) 
-                    )
+                df = df.sort_values(by=other_keys, ascending=True) # sort ascendente caso queira alterar mude para False
+                
+                horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', 
+                    title=f'Gráfico de Barras Horizontais: {data_name}',
+                    color_discrete_sequence=[COLOR_GREEN]
+                )
                 
                 st.plotly_chart(horizontal_bar_chart)
+                
+                horizontal_bar_chart.update_layout(
+                        width=700 
+                    )
                 
                 # Botão para download do CSV
                 if is_download:
