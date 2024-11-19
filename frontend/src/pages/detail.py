@@ -83,10 +83,9 @@ def render_detail():
                 bar_chart = px.bar(df, x=key0, y=other_keys, title=f'Gráfico de Barras: {data_name}', barmode='stack')
                     
                 bar_chart.update_layout(
-                    autosize=True,
                     width=CHART_WIDTH,
-                    height=CHART_HEIGHT, 
-                    margin=dict(l=0, r=0, t=40, b=0) 
+                    height=CHART_HEIGHT,
+                    margin=dict(l=0, r=0, t=40, b=0)
                 )
                 
                 st.plotly_chart(bar_chart)
@@ -96,9 +95,8 @@ def render_detail():
                 area_chart = px.area(df, x=key0, y=other_keys, title=f'Gráfico de Área Empilhada: {data_name}')
                         
                 area_chart.update_layout(
-                    autosize=True,
                     width=CHART_WIDTH,
-                    height=CHART_HEIGHT, 
+                    height=CHART_HEIGHT,
                     margin=dict(l=0, r=0, t=40, b=0) 
                 )
                 
@@ -111,7 +109,7 @@ def render_detail():
                         
                 bubble_chart.update_layout(
                     width=CHART_WIDTH,
-                    height=CHART_HEIGHT, 
+                    height=CHART_HEIGHT,
                     margin=dict(l=0, r=0, t=40, b=0) 
                 )
                 
@@ -133,7 +131,7 @@ def render_detail():
                     
                 horizontal_bar_chart.update_layout(
                         width=CHART_WIDTH,
-                        height=CHART_HEIGHT, 
+                        height=CHART_HEIGHT,
                         margin=dict(l=0, r=0, t=40, b=0) 
                     )
                 

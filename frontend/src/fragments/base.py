@@ -54,7 +54,7 @@ def render_base(content_func):
     #---------- Renderizar o cabeçalho ------------#
     header.render_header()
 
-    col1, col2 = st.columns([1, 5])
+    col1, col2 = st.columns([1, 11])
 
     #--------- Render sidebar ------------#
     with col1:

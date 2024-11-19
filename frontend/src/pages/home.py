@@ -91,10 +91,9 @@ def render_home():
                             st.plotly_chart(bar_chart)
                             
                             bar_chart.update_layout(
-                                autosize=True,
                                 width=CHART_WIDTH,
-                                height=CHART_HEIGHT,                                
-                                margin=dict(l=0, r=0, t=40, b=0) 
+                                height=CHART_HEIGHT,
+                                margin=dict(l=0, r=0, t=40, b=0)                                
                             )
 
                             if is_download:
@@ -113,9 +112,8 @@ def render_home():
                                 st.plotly_chart(area_chart)
                                 
                                 area_chart.update_layout(
-                                    autosize=True,
                                     width=CHART_WIDTH,
-                                    height=CHART_HEIGHT, 
+                                    height=CHART_HEIGHT,
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
 
@@ -137,9 +135,8 @@ def render_home():
                                 st.plotly_chart(bubble_chart)
                                 
                                 bubble_chart.update_layout(
-                                    autosize=True,
                                     width=CHART_WIDTH,
-                                    height=CHART_HEIGHT, 
+                                    height=CHART_HEIGHT,
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
 
@@ -161,9 +158,8 @@ def render_home():
                             st.plotly_chart(horizontal_bar_chart)
                             
                             horizontal_bar_chart.update_layout(
-                                    autosize=True,
                                     width=CHART_WIDTH,
-                                    height=CHART_HEIGHT, 
+                                    height=CHART_HEIGHT,
                                     margin=dict(l=0, r=0, t=40, b=0) 
                                 )
 
