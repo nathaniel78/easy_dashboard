@@ -1,51 +1,11 @@
 import streamlit as st
-from pathlib import Path
-from src.core.param import (
-    SESSION_TIME
+from src.fragments.base import render_base
+from src.core.config import (
+    load_settings,
+    save_settings,
+    check_session_timeout
 )
-import json
-import time
 
-#-------- Carregar settings ----------#
-def load_settings():
-    settings_path = Path("src/core/settings.json")
-    
-    if settings_path.exists():
-        with open(settings_path, "r") as f:
-            settings = json.load(f)
-        return settings
-    else:
-        st.error("Arquivo de settings não encontrado.")
-        return None
-
-#-------- Salvar settings ---------#
-def save_settings(settings):
-    settings_path = Path("src/core/settings.json")
-    
-    with open(settings_path, "w") as f:
-        json.dump(settings, f, indent=4)
-    st.success("Configurações salvas com sucesso!")
-    
-    # Recarregar as configurações imediatamente após salvar
-    st.session_state['settings'] = settings
-    
-
-#-------- Definir tempo de sessão ---------#
-def check_session_timeout():
-    session_timeout = SESSION_TIME
-    
-    if 'last_activity' in st.session_state:
-        current_time = time.time()
-        time_diff = current_time - st.session_state.last_activity
-        
-        if time_diff > session_timeout:
-            st.session_state.logged_in = False
-            st.session_state.username = None
-            st.session_state['page'] = None
-            st.warning("Sessão expirada. Por favor, faça login novamente.")
-            st.experimental_rerun()
-
-    st.session_state.last_activity = time.time()
 
 #-------- Admin ----------#
 def render_admin():
@@ -74,6 +34,22 @@ def render_admin():
             ["light", "dark"],
             index=["light", "dark"].index(settings["config_screen"]),
             key="config_screen"
+        )
+        
+        #----------- Configurar cor dos gráficos ---------#
+        template_chart_color = st.selectbox(
+            "Configurar cor do gráfico",
+            ["cinza", "verde", "azul", "vermelho", "amarelo", "preto"],
+            index=["gray", "green", "mediumblue", "red", "yellow", "dark"].index(settings["config_color"]),
+            key="config_color"
+        )
+        
+         #----------- Configurar size dos gráficos ---------#
+        template_chart_size = st.selectbox(
+            "Configurar comprimento (size) do gráfico",
+            ["500", "700", "900"],
+            index=["500", "700", "900"].index(settings["config_size"]),
+            key="config_size"
         )
         
         #--------- Ativar/desativar download ----------#
@@ -109,6 +85,8 @@ def render_admin():
         #-------- Botão para salvar -----------#
         if st.button("Salvar alterações"):
             settings["config_screen"] = template_color
+            settings["config_color"] = template_chart_color
+            settings["config_size"] = template_chart_size
             settings["config_download"] = download_enabled == "Ativar"
             settings["config_maintenance"] = maintenance_enabled == "Ativar"
             settings["config_token"] = token_input
@@ -124,3 +102,7 @@ def render_admin():
             st.success("Você foi deslogado com sucesso.")
             st.rerun()
 
+
+#---------- Main ---------#
+def main():
+    render_base(render_admin)

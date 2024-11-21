@@ -8,13 +8,8 @@ import plotly.express as px
 from pathlib import Path
 import pandas as pd
 import json
-from src.core.param import (
-    CHART_WIDTH,
-    CHART_HEIGHT,
-    COLOR_BLUE,
-    COLOR_BLACK,
-    COLOR_GREEN,
-    COLOR_RED
+from src.core.config import (
+    load_settings
 )
 
 
@@ -85,42 +80,40 @@ def render_detail():
                 # Gráfico de barras empilhadas
                 bar_chart = px.bar(df, x=key0, y=other_keys, 
                     title=f'Gráfico de Barras: {data_name}', barmode='stack',
-                    color_discrete_sequence=[COLOR_GREEN]
+                    color_discrete_sequence=[settings["config_color"]]
                 )
-                    
-                st.plotly_chart(bar_chart)
-                
+                        
                 bar_chart.update_layout(
-                    width=CHART_WIDTH,
-                    height=CHART_HEIGHT
+                    width=int(settings["config_size"])
                 )
+                
+                st.plotly_chart(bar_chart)
                 
             elif type_chart == 2:
                 # Gráfico de área empilhada
                 area_chart = px.area(df, x=key0, y=other_keys, 
                     title=f'Gráfico de Área Empilhada: {data_name}',
-                    color_discrete_sequence=[COLOR_GREEN]
+                    color_discrete_sequence=[settings["config_color"]]
                 )
 
-                st.plotly_chart(area_chart, use_container_width=True)
-                    
                 area_chart.update_layout(
-                    width=CHART_WIDTH,
-                    height=CHART_HEIGHT 
+                    width=int(settings["config_size"]) 
                 )
+                
+                st.plotly_chart(area_chart, use_container_width=True)
             
             elif type_chart == 3:
                 # Gráfico de bolhas
                 bubble_chart = px.scatter(df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, 
-                    title=f'Gráfico de Bolhas: {data_name}'
+                    title=f'Gráfico de Bolhas: {data_name}',
+                    color_discrete_sequence=[settings["config_color"]]
+                )
+                
+                bubble_chart.update_layout(
+                    width=int(settings["config_size"]) 
                 )
                 
                 st.plotly_chart(bubble_chart, use_container_width=True)
-                
-                bubble_chart.update_layout(
-                    width=CHART_WIDTH,
-                    height=CHART_HEIGHT 
-                )
 
             # Botão para download do CSV
             if is_download:
@@ -138,14 +131,14 @@ def render_detail():
                 
                 horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', 
                     title=f'Gráfico de Barras Horizontais: {data_name}',
-                    color_discrete_sequence=[COLOR_GREEN]
+                    color_discrete_sequence=[settings["config_color"]]
                 )
                 
-                st.plotly_chart(horizontal_bar_chart)
-                
                 horizontal_bar_chart.update_layout(
-                        width=700 
+                        width=int(settings["config_size"]) 
                     )
+                
+                st.plotly_chart(horizontal_bar_chart)
                 
                 # Botão para download do CSV
                 if is_download:

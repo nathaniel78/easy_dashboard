@@ -8,8 +8,10 @@ logger = logging.getLogger(__name__)
 
 SYNC_TIME = settings.SYNC_TIME
 
+# TODO: Function start_scheduler
 def start_scheduler():
-    # Chamar tasks
+    
+    # TODO: Function run_periodically
     def run_periodically():
         while True:
             try:

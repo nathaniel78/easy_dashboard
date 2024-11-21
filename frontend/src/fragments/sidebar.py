@@ -71,9 +71,9 @@ def render_sidebar():
             for index, row in dl.iterrows():
                 try:
                     # Obtém os valores das colunas necessárias com validação
-                    value_id = row.get(0, None)
-                    value_name = row.get(1, "Sem Nome")
-                    value_type_chart = row.get(4, "Tipo Desconhecido")
+                    value_id = row.get('id', None)
+                    value_name = row.get('name', "Sem Nome")
+                    value_type_chart = row.get('type_chart', "Tipo Desconhecido")
                     
                     # Limita o comprimento do nome para exibição
                     value_name_limite = value_name[:40]

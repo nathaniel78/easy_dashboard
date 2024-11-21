@@ -6,26 +6,27 @@ from api.models import (
     Data, 
 )
 
-# Serializer Host
+# TODO: Serializer Host
 class HostSerializar(serializers.ModelSerializer):
     class Meta:
         model = Host
         fields = '__all__'
         
 
-# Serializer SQL
+# TODO: Serializer SQL
 class SQLSerializer(serializers.ModelSerializer):
     class Meta:
         model =SQL
         fields = '__all__'
         
 
-# Serializer Data
+# TODO: Serializer Data
 class DataSerializer(serializers.ModelSerializer):
     class Meta:
         model =Data
         fields = '__all__'
         
+     # TODO: Function to_representation
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         
@@ -38,6 +39,7 @@ class DataSerializer(serializers.ModelSerializer):
 
         return representation
 
+    # TODO: Function to_internal_value
     def to_internal_value(self, data):
         # Converte 'data_json' de volta para o formato de string JSON, se for um objeto
         if 'data_json' in data:
@@ -48,7 +50,7 @@ class DataSerializer(serializers.ModelSerializer):
 
         return super().to_internal_value(data)
         
-    # Validação    
+    # TODO: Validation    
     def validate(self, data):
         type_chart = data.get('type_chart')
         if type_chart not in [1, 2, 3, 4]:

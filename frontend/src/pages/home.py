@@ -8,27 +8,9 @@ import pandas as pd
 import plotly.express as px
 from pathlib import Path
 import json
-from src.core.param import (
-    CHART_WIDTH,
-    CHART_HEIGHT,
-    COLOR_BLUE,
-    COLOR_BLACK,
-    COLOR_GREEN,
-    COLOR_RED
+from src.core.config import (
+    load_settings
 )
-
-
-#-------- Carregar settings ----------#
-def load_settings():
-    settings_path = Path("src/core/settings.json")
-    
-    if settings_path.exists():
-        with open(settings_path, "r") as f:
-            settings = json.load(f)
-        return settings
-    else:
-        st.error("Arquivo de settings não encontrado.")
-        return {}
 
 
 #------ Converte data ---------#
@@ -94,14 +76,14 @@ def render_home():
                         if data_type_chart == 1:
                             bar_chart = px.bar(df, x=key0, y=other_keys, 
                                 title=f"Gráfico de Barras: {value_name}", barmode="stack",
-                                color_discrete_sequence=[COLOR_GREEN]
+                                color_discrete_sequence=[settings["config_color"]]
+                            )
+                                                                                   
+                            bar_chart.update_layout(
+                                width=int(settings["config_size"])                                
                             )
                             
                             st.plotly_chart(bar_chart)
-                            
-                            bar_chart.update_layout(
-                                width=CHART_WIDTH                                
-                            )
 
                             if is_download:
                                 csv = convert_df(df)
@@ -117,13 +99,14 @@ def render_home():
                             if len(df[key0].unique()) > 1:
                                 area_chart = px.area(df, x=key0, y=other_keys, 
                                     title=f"Gráfico de Área Empilhada: {value_name}",
-                                    color_discrete_sequence=[COLOR_GREEN]
+                                    color_discrete_sequence=[settings["config_color"]]
                                 )
-                                st.plotly_chart(area_chart)
-                                
+                                                               
                                 area_chart.update_layout(
-                                    width=CHART_WIDTH 
+                                    width=int(settings["config_size"]) 
                                 )
+                                
+                                st.plotly_chart(area_chart)
 
                                 if is_download:
                                     csv = convert_df(df)
@@ -139,13 +122,15 @@ def render_home():
                             if len(other_keys) >= 2:
                                 bubble_chart = px.scatter(
                                     df, x=key0, y=other_keys[0], size=other_keys[1], color=key0, 
-                                        title=f"Gráfico de Bolhas: {value_name}"
+                                        title=f"Gráfico de Bolhas: {value_name}",
+                                        color_discrete_sequence=[settings["config_color"]]
                                 )
-                                st.plotly_chart(bubble_chart)
-                                
+                                                                
                                 bubble_chart.update_layout(
-                                    width=CHART_WIDTH
+                                    width=int(settings["config_size"])
                                 )
+                                
+                                st.plotly_chart(bubble_chart)
 
                                 if is_download:
                                     csv = convert_df(df)
@@ -165,14 +150,15 @@ def render_home():
                             
                             horizontal_bar_chart = px.bar(df, x=other_keys, y=key0, orientation='h', 
                                 title=f'Gráfico de Barras Horizontais: {value_name}', 
-                                color_discrete_sequence=[COLOR_GREEN]
+                                color_discrete_sequence=[settings["config_color"]]
                             )
-                            st.plotly_chart(horizontal_bar_chart)
-                            
+                                                        
                             horizontal_bar_chart.update_layout(
-                                    width=CHART_WIDTH 
+                                    width=int(settings["config_size"])
                                 )
 
+                            st.plotly_chart(horizontal_bar_chart)
+                            
                             if is_download:
                                 csv = convert_df(df)
                                 st.download_button(

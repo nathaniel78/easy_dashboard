@@ -1,19 +1,9 @@
 import streamlit as st
-from pathlib import Path
-import json
+from src.fragments.base import render_base
+from src.core.config import (
+    load_credentials
+)
 
-
-#-------- Carregando credentials ---------#
-def load_credentials():
-    credentials_path = Path("src/core/authentication.json")
-    
-    if credentials_path.exists():
-        with open(credentials_path, "r") as f:
-            credentials = json.load(f)
-        return credentials
-    else:
-        st.error("Arquivo de credenciais não encontrado.")
-        return None
 
 #-------- Credentials ---------#
 def render_login():
@@ -39,3 +29,7 @@ def render_login():
             st.error("Usuário ou senha inválidos.")
     
     return False
+
+#---------- Main ---------#
+def main():
+    render_base(render_login)

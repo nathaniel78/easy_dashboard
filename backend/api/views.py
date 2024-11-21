@@ -150,8 +150,8 @@ class DataAPI(APIView):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
         
-        # SQLTaskRunner.run_sql()
-        # SQLTaskRunner.run_data()
+        SQLTaskRunner.run_sql()
+        SQLTaskRunner.run_data()
         
         data = Data.objects.all()        
         serializer = DataSerializer(data, many=True)
@@ -162,29 +162,32 @@ class DataAPI(APIView):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
         
-        serializer = DataSerializer(data=request.data)
+        serializer = DataSerializer(data=request.data)        
         
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-# View DataDetail
+# TODO: View DataDetail
 class DataDetailAPI(APIView):
-    # Validate
+    # TODO: Validate
     def get_object(self, pk):
         return get_object_or_404(Data, pk=pk)
     
-    # Detail
+    # TODO: Detail
     def get(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
+        
+        SQLTaskRunner.run_sql()
+        SQLTaskRunner.run_data()
         
         data = self.get_object(pk)
         serializer = DataSerializer(data)        
         return Response(serializer.data, status=status.HTTP_200_OK)
         
-    # Update
+    # TODO: Update
     def put(self, request, pk):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
@@ -193,6 +196,8 @@ class DataDetailAPI(APIView):
         serializer = DataSerializer(data, data=request.data)
         
         if serializer.is_valid():
+            
+            
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,6 +1,6 @@
 from django.db import models
 
-# Model host
+# TODO: Model host
 class Host(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=100)
@@ -18,7 +18,7 @@ class Host(models.Model):
         return self.name
 
 
-# Model sql
+# TODO: Model sql
 class SQL(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=100)
@@ -32,7 +32,7 @@ class SQL(models.Model):
         return self.name
 
 
-# Model data
+# TODO: Model data
 class Data(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
     description = models.CharField(max_length=100)

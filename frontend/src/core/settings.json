@@ -1,7 +1,9 @@
 {
     "config_screen": "light",
+    "config_color": "gray",
+    "config_size": "900",
     "config_download": false,
     "config_maintenance": false,
-    "config_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NjM5ODc1LCJpYXQiOjE3MzIwNDc4NzUsImp0aSI6IjU3ODM1N2U3YjBlZTRiYTE5YTY3N2UyMDQ4YzEwODBmIiwidXNlcl9pZCI6MX0.iGhB6hoCvu5bErE3fptTYEfeVVVbuvo5aW22hTb2W2s",
-    "config_refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMjEzNDI3NSwiaWF0IjoxNzMyMDQ3ODc1LCJqdGkiOiIyNmRhZWUyYzRiYjM0OGVkYmQyYjM0YWIwODQ1MmU0ZiIsInVzZXJfaWQiOjF9.jIxUaHtu02YFjFvMEgV_BCMlXV4GSUSUzbsqFYbHxOA"
+    "config_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NzUzNDEwLCJpYXQiOjE3MzIxNjE0MTAsImp0aSI6Ijk5Y2RlZjBiYmExNTQyNTM5ZDA5MDBjNmFlNjA5N2Y4IiwidXNlcl9pZCI6MX0.gcB6xfzhI0LayfcDEO-laqOSqGgp8MxiAcJZZlFpzTA",
+    "config_refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMjI0NzgxMCwiaWF0IjoxNzMyMTYxNDEwLCJqdGkiOiI4Y2NjMDY5ZWQ5YjQ0M2Q1ODQ2M2FhN2Q2YjliNmEzMCIsInVzZXJfaWQiOjF9.psUn1vzPqfrRomsR17OAz_N0yYoeICXq9NxlzkzhB-M"
 }
