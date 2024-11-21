@@ -180,8 +180,8 @@ class DataDetailAPI(APIView):
         authentication_classes = [JWTAuthentication, SessionAuthentication]
         permission_classes = [IsAuthenticated]
         
-        SQLTaskRunner.run_sql()
-        SQLTaskRunner.run_data()
+        # SQLTaskRunner.run_sql()
+        # SQLTaskRunner.run_data()
         
         data = self.get_object(pk)
         serializer = DataSerializer(data)        
