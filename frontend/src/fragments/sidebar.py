@@ -1,23 +1,12 @@
 import streamlit as st
 from src.core.config import ConnectAPI
 import pandas as pd
-from pathlib import Path
-import json
 from src.core.param import (
     IMAGE_LOGO
 )
-
-#-------- Carregar settings ----------#
-def load_settings():
-    settings_path = Path("src/core/settings.json")
-    
-    if settings_path.exists():
-        with open(settings_path, "r") as f:
-            settings = json.load(f)
-        return settings
-    else:
-        st.error("Arquivo de settings não encontrado.")
-        return {}
+from src.core.config import (
+    load_settings
+)
 
 #------- Sidebar -----------#
 def render_sidebar():

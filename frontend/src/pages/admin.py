@@ -39,7 +39,7 @@ def render_admin():
         #----------- Configurar cor dos gráficos ---------#
         template_chart_color = st.selectbox(
             "Configurar cor do gráfico",
-            ["cinza", "verde", "azul", "vermelho", "amarelo", "preto"],
+            ["gray", "green", "mediumblue", "red", "yellow", "dark"],
             index=["gray", "green", "mediumblue", "red", "yellow", "dark"].index(settings["config_color"]),
             key="config_color"
         )

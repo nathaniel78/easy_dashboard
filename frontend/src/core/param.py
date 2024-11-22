@@ -13,9 +13,3 @@ SESSION_TIME = os.getenv(
         default=300
         )
 FOOTER_COPYRIGTH = '© 2024 EasyDashboard. Uso restrito a fins comerciais mediante licenciamento. <a href="https://github.com/nathaniel78/easy_dashboard" target="_blank">Git do projeto<a/>'
-CHART_WIDTH = 700
-CHART_HEIGHT = 500
-COLOR_GREEN = "green"
-COLOR_BLUE = "blue"
-COLOR_RED = "red"
-COLOR_BLACK = "black"

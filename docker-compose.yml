@@ -38,6 +38,8 @@ services:
     restart: always
     environment:
       API_URL: http://backend:8000/api
+      #IMAGE_LOGO_URL: # url onde está a imagem para o logo
+      #SESSION_TIME: # default 300
     volumes:
       - ./frontend:/app
     networks:

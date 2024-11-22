@@ -2,20 +2,15 @@
 import streamlit as st
 from . import header, sidebar, footer
 from pathlib import Path
-import json
+from src.core.config import (
+    load_settings
+)
 
 #------ Config set streamlit ---------#
 st.set_page_config(
     page_icon=":chart:",
     layout="wide"
 )
-
-#------ Load settings ---------#
-def load_settings():
-    settings_path = Path("src/core/settings.json")
-    with open(settings_path, "r") as file:
-        settings = json.load(file)
-    return settings
 
 #------ Aviso de manutenção ---------#
 def maintenance():
