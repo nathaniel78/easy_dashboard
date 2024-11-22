@@ -1,21 +1,25 @@
 import streamlit as st
 from src.core.config import ConnectAPI
 import pandas as pd
-from src.core.param import (
-    IMAGE_LOGO
-)
-from src.core.config import (
-    load_settings
-)
+from src.core.param import IMAGE_LOGO
+from src.core.config import load_settings
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 #------- Sidebar -----------#
 def render_sidebar():
     # ----------- Conexão API ------------ #
-    api = ConnectAPI()
-    response_data_list = api.get_data_as_list()
-    
-    # Validação inicial do response
-    if response_data_list is not None and isinstance(response_data_list, list):
+    try:
+        api = ConnectAPI()
+        response_data_list = api.get_data_as_list()
+        logging.debug(f"Dados retornados pela API em sidebar: {response_data_list}")
+    except Exception as e:
+        st.error(f"Erro ao conectar-se à API: {e}")
+        logging.error(f"Erro ao conectar-se à API em sidebar: {e}")
+        response_data_list = []
+
+    # Validação inicial dos dados da API
+    if response_data_list and isinstance(response_data_list, list):
         try:
             dl = pd.json_normalize(response_data_list)
             dl = dl.sort_values(by="id", ascending=False)
@@ -40,7 +44,6 @@ def render_sidebar():
 
     # ---------- Carrega as configurações do settings.json -------------- #
     settings = load_settings()
-
     maintenance = settings.get("config_maintenance", False)
 
     # ----------- Menu ------------ #
@@ -63,12 +66,12 @@ def render_sidebar():
                     value_id = row.get('id', None)
                     value_name = row.get('name', "Sem Nome")
                     value_type_chart = row.get('type_chart', "Tipo Desconhecido")
-                    
+
                     # Limita o comprimento do nome para exibição
-                    value_name_limite = value_name[:40]
+                    value_name_limit = value_name[:40]
 
                     # Cria o botão com uma chave única baseada no índice
-                    if st.sidebar.button(f"{value_name_limite}", key=f"button_{index}"):
+                    if st.sidebar.button(f"{value_name_limit}", key=f"button_{index}"):
                         st.session_state['id'] = value_id
                         st.session_state['page'] = 'detail'
                         st.session_state['description'] = value_name

@@ -1,16 +1,11 @@
-import plotly.io as pio
-pio.renderers.default = "browser"
-
 from src.fragments.base import render_base
 from src.core.config import ConnectAPI
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from pathlib import Path
-import json
-from src.core.config import (
-    load_settings
-)
+from src.core.config import load_settings
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 
 #------ Converte data ---------#
@@ -23,10 +18,14 @@ def convert_df(df):
 def render_home():
     #------------ Conexão com a API ------------#
     try:
+        # Inicializa a conexão com a API
         api = ConnectAPI()
         response_data_list = api.get_data_as_list()
+        logging.debug(f"Dados retornados pela API em home: {response_data_list}")
     except Exception as e:
+        # Trata exceções ao tentar conectar-se à API
         st.error(f"Erro ao conectar-se à API: {e}")
+        logging.error(f"Erro ao conectar-se à API em home: {e}")
         return
 
     #---------- Carrega as configurações do settings.json --------------#
@@ -34,17 +33,20 @@ def render_home():
     is_download = settings.get("config_download", False)
 
     #--------- Validação -----------#
-    if not response_data_list:
-        st.warning("Nenhum dado encontrado.", icon="⚠️")
+    if not response_data_list or not isinstance(response_data_list, list):
+        st.warning("A API retornou uma lista vazia ou dados inválidos.", icon="⚠️")
+        logging.warning(f"Resposta inválida da API: {response_data_list}")
         return
-
+    
     try:
         dl = pd.json_normalize(response_data_list)
-        dl = dl.sort_values(by="id", ascending=True)
+        dl = dl.sort_values(by="id", ascending=True)  # Ordena pelo campo "id"
         values = list(dl.values)
+        logging.debug(f"Dados processados com sucesso: {dl.head()}")
     except Exception as e:
-        st.error(f"Erro ao processar dados da API: {e}")
-        return
+        st.error(f"Erro ao processar os dados da API: {e}")
+        logging.error(f"Erro ao processar os dados da API: {e}")
+        dl = pd.DataFrame()
 
     max_graphs = 4
     limited_values = values[::-1][:max_graphs]
