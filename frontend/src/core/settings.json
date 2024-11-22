@@ -4,6 +4,6 @@
     "config_size": "900",
     "config_download": false,
     "config_maintenance": false,
-    "config_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0ODMxMTI1LCJpYXQiOjE3MzIyMzkxMjUsImp0aSI6IjYwMGZjODEyMzc4ZTQ4NTk4MTU1YTI0MGRiNDU3NWRhIiwidXNlcl9pZCI6MX0.3jph4bJDARIpQgj37nSVm-4nkuZfB8I0057ZnjmIn9U",
-    "config_refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTczMjMyNTUyNSwiaWF0IjoxNzMyMjM5MTI1LCJqdGkiOiI3YzIyYWU5M2IwZGU0NzM3OTEyYzJkZTYzOThiNTY1MyIsInVzZXJfaWQiOjF9._ZBGOo5TgrXvaIphnEyE1pZbsYvBv4nJcsCPc75X1TM"
+    "config_token": "",
+    "config_refresh": ""
 }
