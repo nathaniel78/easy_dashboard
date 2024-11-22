@@ -22,4 +22,4 @@ def start_scheduler():
             time.sleep(SYNC_TIME)
 
     thread = threading.Thread(target=run_periodically, daemon=True)
-    thread.start()
+    # thread.start()

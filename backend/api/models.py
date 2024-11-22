@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # TODO: Model host
 class Host(models.Model):
@@ -16,6 +17,19 @@ class Host(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        
+        # Valida o campo type_chart no modelo
+        if self.host_db_drive not in [1, 2]:
+            raise ValidationError(
+                "Valores aceitos: 1 (postgres), 2 (mysql)"
+            )
+    
+    def save(self, *args, **kwargs):
+        self.clean() 
+        super().save(*args, **kwargs)
 
 
 # TODO: Model sql
@@ -45,4 +59,17 @@ class Data(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def clean(self):
+        super().clean()
+        
+        # Valida o campo type_chart no modelo
+        if self.type_chart not in [1, 2, 3, 4]:
+            raise ValidationError(
+                "Valores aceitos: 1 (barra empilhada), 2 (área empilhada), 3 (bolha empilhada), 4 (barra horizontal)"
+            )
+    
+    def save(self, *args, **kwargs):
+        self.clean()  # Chama a validação personalizada antes de salvar
+        super().save(*args, **kwargs)
 

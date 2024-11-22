@@ -1,7 +1,7 @@
 from api.execute_query import SQLTaskRunner
 from django.contrib import admin
-from .models import Host, SQL, Data
-from .forms import DataForm
+from api.models import Host, SQL, Data
+from api.forms import DataForm, HostForm
 
 
 # TODO: Load information host
@@ -9,6 +9,12 @@ from .forms import DataForm
 class HostAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'host_active', 'data_create')
     search_fields = ('name', 'host_endpoint')
+    
+    SQLTaskRunner.run_sql()
+    SQLTaskRunner.run_data()
+    
+    # TODO: Use the custom form
+    form = HostForm
 
 
 # TODO: Load information sql
@@ -17,6 +23,9 @@ class SQLAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'host', 'data_create')
     search_fields = ('name',)
     list_filter = ('host',)
+    
+    SQLTaskRunner.run_sql()
+    SQLTaskRunner.run_data()
 
 # TODO: Load information Data
 @admin.register(Data)
@@ -24,6 +33,7 @@ class DataAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'sql', 'type_chart', 'emphasis', 'truncated_data_json', 'data_create')
     search_fields = ('name',)
     list_filter = ('type_chart', 'emphasis')
+    
     SQLTaskRunner.run_sql()
     SQLTaskRunner.run_data()
 

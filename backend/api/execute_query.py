@@ -1,3 +1,5 @@
+from django.db import connections
+from django.db.migrations.executor import MigrationExecutor
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from api.models import SQL, Data
@@ -11,13 +13,28 @@ logger = logging.getLogger(__name__)
 # TODO: Class sqltaskrunner
 class SQLTaskRunner:
     
+    @staticmethod
+    def migrations_applied():
+        """
+        Verifica se as migrações foram aplicadas no banco de dados.
+        """
+        connection = connections['default']
+        executor = MigrationExecutor(connection)
+        # Verifica se não há migrações pendentes
+        return not executor.migration_plan(executor.loader.graph.leaf_nodes())
+    
     # TODO: Function run_sql
     @staticmethod
     def run_sql():
+        # Verifica se as migrações foram aplicadas
+        if not SQLTaskRunner.migrations_applied():
+            logger.warning("Migrações não aplicadas. Execução do SQL não será realizada.")
+            return
+        
         sql_entries = SQL.objects.all()
 
         for entry in sql_entries:
-            host = entry.host            
+            host = entry.host
 
             if not host.host_active:
                 logger.info(f"Host '{host.name}' está inativo. Ignorando execução.")
@@ -57,9 +74,14 @@ class SQLTaskRunner:
             except Exception as e:
                 logger.error(f"Erro ao salvar resultados para '{entry.name}': {e}")
 
-     # TODO: Function run_data
+    # TODO: Function run_data
     @staticmethod
     def run_data():
+        # Verifica se as migrações foram aplicadas
+        if not SQLTaskRunner.migrations_applied():
+            logger.warning("Migrações não aplicadas. Execução do Data não será realizada.")
+            return
+
         data_entries = Data.objects.all()
 
         for data_update in data_entries:
@@ -81,31 +103,5 @@ class SQLTaskRunner:
             
             except Exception as e:
                 logger.error(f"Erro ao atualizar Data com ID {data_update.id}: {e}")
+
                 
-     # TODO: Function run_data_instance
-    @staticmethod
-    def run_data_instance(data_id):
-        # Recupera o objeto Data ou retorna 404 se não for encontrado
-        data = get_object_or_404(Data, pk=data_id)
-        
-        try:
-            # Recupera o resultado associado ao SQL
-            sql_result = data.sql.result
-            
-            if sql_result is not None:
-                # Atualiza o campo data_json com o resultado do SQL
-                data.data_json = json.dumps(sql_result, ensure_ascii=False)
-                data.save()
-                logger.info(f"Data com ID {data.id} atualizado com sucesso.")
-            else:
-                logger.warning(f"SQL com ID {data.sql.id} não possui resultado válido.")
-        
-        except json.JSONDecodeError as e:
-            logger.error(f"Erro ao serializar JSON para Data com ID {data.id}: {e}")
-            raise Exception(f"Erro ao serializar JSON: {e}")
-        except AttributeError as e:
-            logger.error(f"Erro de atributo em Data com ID {data.id}: {e}")
-            raise Exception(f"Erro de atributo: {e}")
-        except Exception as e:
-            logger.error(f"Erro inesperado ao atualizar Data com ID {data.id}: {e}")
-            raise Exception(f"Erro inesperado: {e}")

@@ -191,3 +191,5 @@ LOGGING = {
 
 # Valor padrão 5 minutos para realizar a sync
 SYNC_TIME = int(config('SYNC_TIME', default=300))
+
+ENABLE_SCHEDULER = config('ENABLE_SCHEDULER', default='True')

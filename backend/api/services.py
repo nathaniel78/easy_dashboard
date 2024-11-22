@@ -1,20 +1,12 @@
-from django.shortcuts import get_object_or_404
 from api.models import Host
 import psycopg2
 import mysql.connector as mysql
+from api.utils import hash_person
 import logging
 
 logger = logging.getLogger(__name__)
 
  # TODO: Class databaseservice
-from django.shortcuts import get_object_or_404
-from api.models import Host
-import psycopg2
-import mysql.connector as mysql
-import logging
-
-logger = logging.getLogger(__name__)
-
 class DatabaseService:
     """
     Serviço de gerenciamento de banco de dados.
@@ -47,7 +39,9 @@ class DatabaseService:
                 self.host = host.host_endpoint
                 self.drive = host.host_db_drive
                 self.user = host.host_username
-                self.password = host.host_password
+                print(host)
+                passwrod_decrypt = hash_person.PasswordFernetKey.return_hash(host_id)
+                self.password = passwrod_decrypt
                 self.db_name = host.host_db_name
                 self.port = host.host_port
                 logger.info(f"Host {host_id} carregado com sucesso.")
